@@ -1,0 +1,260 @@
+\documentclass{article}[12pt]
+\usepackage{fullpage,latexsym,amsthm,latexsym,amssymb,
+            amstext,amsfonts,amsmath,graphicx, microtype, wrapfig, float, indentfirst} 
+\usepackage[dvipsnames]{xcolor}   
+
+\usepackage{fancyhdr}
+\usepackage[export]{adjustbox}
+\usepackage{lipsum}
+
+
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\lfoot{\includegraphics[scale=0.68,valign=c]{footer.png}
+       }
+\lhead{\includegraphics[scale=0.68,valign=c]{footer.png}
+       }
+\rhead{\thepage}
+\rfoot{\thepage}
+
+\begin{document}   
+\pagenumbering{gobble}
+
+\pagebreak
+\begin{center}
+\vspace*{\stretch{1}}
+
+
+{\Large{\textbf{7890 Space Lions Control Award}}} \\
+\vspace{5mm}
+{By 7890 Software} \\ 
+\vspace{5mm}
+{2019-2020 Season}
+
+
+\vspace*{\stretch{1}}
+\end{center}
+
+
+\renewcommand*\contentsname{Table of Contents}
+
+
+
+\newpage
+
+\tableofcontents
+
+
+\newpage
+\section{Autonomous Objectives}
+
+\textit{\underline{Our main objectives are to reposition and navigate.}} \\
+
+\indent{For our autonomous, we prioritized relying as little as possible on the use of “hard-code” (code where the robot moves or does actions based off of time or encoders). We feel that the less our robot has to rely on the field being set up a certain way, the greater success we will have. For this reason, we have made our code entirely based of off the usage of sensors. We use a MR range sensor, a color sensor, a touch sensor, and a Rev IMU in order to navigate the field. By using these sensors, it does not matter if the field has slight differences from the field we tested on, as our robot will be able to quickly adjust. By sensing distances from the wall and making precise turns, our robot will be able to execute our autonomous anywhere.} 
+
+
+\subsection{Moving the Foundation}
+
+\indent {To reposition the foundation, we first move along the wall until we are sixteen inches away from the other wall. We do this by using an MR Range Sensor to detect how far away we are from the wall. Once we have reached our destination, we then turn 90º using the IMU. After we have turned so that the back of our robot is facing the foundation, we then move backwards until the touch sensor is pressed. Once the robot is at the foundation, we then use a motor to bring down the arm to move the foundation. We then move the foundation once again by driving the robot towards the build site, using the MR range sensor to stop the robot when we get to the wall.
+}
+\subsection{Parking under the Bridge}
+\indent{To navigate under the bridge, we move along the wall until the Rev Color Distance Sensor on the bottom of our robot detects the colored tape under the bridge. This is the most effecient and least time-consuming way to park under the bridge.
+}
+
+\section{Sensors used}
+Sensors are vital in creating a consistent and reliable autonomous. We use many sensors in order to make our autonomous work even if the game field differs from the field we practiced on. We are using a Rev IMU, a Modern Robotics Range Sensor, a Touch Sensor, and a Rev Color Distance Sensor in order to have the best and most dependable autonomous mode we can code.
+
+
+\subsection[Rev IMU for Gyro Turning]{Rev IMU x1}
+{The Rev IMU senses the rate of rotation in the x, y, and z axes. It also returns a heading based off of changes in the z-axis which allows us to measure the angle of rotation. It sets one direction as 0 and then all of the other angles is based off of that initial heading. This makes for really accurate and consistent turning, making it perfect for a field where we have to turn a lot to navigate between objectives.} \\
+
+\indent{\textit{In this game, we use the Rev IMU to turn a certain amount of degrees so we can always be on the right course to hit the foundation and score points. The Rev IMU detects the clockwise rotation of our robot, and stops the robot after it detects that our robot has turned the correct amount. This lets us consistently turn the correct way to drive to and grab the foundation.}}
+
+\subsection[Rev Touch Sensor]{Touch Sensor x1}
+{The touch sensor is a Digital Channel that acts similar to a button. This sensor has two input/output channels grouped in each digital port of the expansion hub, so when it is pressed, the sensor’s getState() method returns false and when it isn’t pressed it returns true.}\\
+
+\indent{\textit{We use the touch sensor to sense when we have bumped up against the foundation. We did this because then when we move the foundation, we always bring down the arm to drag it at the right place.}}
+
+
+
+\subsection[Rev Color Distance Sensor]{Rev Color Distance Sensor x1}
+{The Rev Color Distance Sensor has a built-in IR for optical distance sensing as well as an LED for active target lighting. We only use this sensor for its color-sensing abilities since we have the MR Range sensor which is more versatile and accurate. For color sensing, this sensor essentially shines a white LED light, which allows it to see the RGB values for the target. This sensor, because it uses this method like most color sensors, is really good at sensing color up close, but the farther away it is from its target, the more spotty the color detection becomes. That is why we mounted the sensor as close to the ground as possible, so that it’s incredibly easy for it to sense the colored tape under the bridge.} \\
+
+\indent{\textit{To park our robot under the bridge, we use a Rev Color Distance Sensor on the underbelly of our robot. Our autonomous code finishes by having the robot drive straight under the bridge, and when the color sensor detects the colored tape under the alliance bridges, it tells the robot to stop right over the line.}}
+
+
+
+\subsection[Modern Robotics Range Sensors]{Modern Robotics Range Sensors (x1)}
+{We use MR Range sensors because they combine the pros and cons of both an ODS (optical distance sensors) and an ultrasonic sensor. ODS sensors emit light waves and then receive them to determine distance, while ultrasonic sensors use sound. Using light makes ODS sensors very accurate at close ranges (0cm - 5cm) while using sound makes ultrasonic sensors very accurate and longer ranges (5cm - 255cm). If we were to only use one of these two sensors, we would suffer at different distances. Range sensors give us accuracy at all ranges, because they pick and choose the outputs of both the built-in ODS and ultrasonic sensors. We have created diagrams below which detail how both the ultrasonic and ODS components of the range sensor work (figures in their respective orders).} \\
+
+\indent{\textit{In the Skystone Game, we use the Modern Robotics Range Sensor in order to sense the robot’s distance from the barriers of the field and to execute precise turns. When the robot approaches the barrier of the field, the range sensor detects the robot’s distance from them and when the robot drives close enough to the wall, the sensor sends a signal to the motors to turn the robot.}}
+
+
+\subsection{Modern Robotics Range Sensor Diagrams}
+\begin{center}
+ \begin{figure}[!htb]
+{\includegraphics[width=.75 \linewidth]{pic2.png}}
+\caption{How our range sensor uses sound}
+{\includegraphics[width = .75\linewidth]{pic.png}}
+\caption{Using light in our range sensor}
+\end{figure}
+\end{center}
+
+
+
+\clearpage
+\section{Key algorithms}
+
+\subsection{Pre-Programmed Movements}
+\indent{We made a move method that only had two parameters: the direction we were going to move in and the speed. This is because when programming, we didn’t want to constantly be manually setting the power of all four of the motors. It also makes our code shorter and more concise since the String parameter is easier to do than manually setting the power of all of our motors every time.}
+
+\subsection{State Machines}
+\textit{\underline{State machines allow us to easily organize our code and do a lot of the work in advance.}} \\
+
+We use state machines in order to streamline the way we do autonomous. Because we use a state machine, we have different classes or states that all make our robot perform a single action, for example, we have one state that makes the robot move forward until it’s a certain distance away from the wall. This way, it is a lot easier to organize our autonomous and debug our code.  State machines allow us to program a lot of the simple actions we need before the season begins and then compile them once we know our game strategy. To use states, we first have classes that program what the robot will do. Then, in our state machine, we create objects from those classes and then order the execution of the states by using the setNextState() method. This way, we create a chain of states that are executed one after the other. We can simply chain them up and at the start of autonomous, run the first state. Like dominoes, the rest of the states follow. 
+
+
+\subsubsection{PID Controller Turning State}
+
+We have a state that allows us to turn using the PID controller. Essentially, we have a target heading to reach and our robot will turn (let’s say clockwise) until it hits that heading. Normally, you have to set a range of around 20º around that number or else a number might be skipped and your robot will be left spinning forever. However, we use a PID controller. As we turn, the PID controller monitors the angle that we have turned and as we get closer to the target angle, it starts to slow down. The PID controller also has a tolerance of 2\%, so if the difference between the target angle and the current angle are within 2\% of the target, the robot stops turning. Both of these mechanisms work together to prevent overshooting the turns as the robot’s momentum keeps it from stopping completely. With the PID controller, turning is even more accurate than turning with other gyro sensors. 
+
+
+\subsubsection{Range Sensor Movement State}
+
+We have an MR Range Sensor on the front of our robot. When we move along the wall towards the foundation, we use the range sensor to tell when we have arrived at our destination. In this state, we have a boolean called isMoved which is false by default  and a target distance which we compare to the distance the range sensor returns. When it is false and the range sensor has , the robot moves forward until the distance the range sensor returns is equal to or less than the target distance. We made it so that the range sensor could return a value equal to or less than instead of just equal to because sometimes the range sensor will skip a few values. Once the robot has reached the target distance, the isMoved boolean becomes true and we move on to the next state in the state machine.
+
+\subsubsection{Touch and Color Movement State}
+
+In this state, we use the touch sensor on the back of the robot to determine whether we have arrived at the foundation or not. We have also have a boolean called isMoved which is false by default, but becomes true after the button is pressed. The robot moves backwards until the getState() method for the touch sensor returns false. getState() returns false when the touch sensor is pressed. Once this happens, the robot stops moving and isMoved becomes true, causing the code to move on to the next state. The Color Movement State makes it so that our robot moves either forwards or backwards until the Rev Color Distance Sensor senses a color as opposed to when the touch sensor is pressed. 
+
+\section{Driver Controlled Enhancements}
+
+We have many driver-controlled enhancements to improve the efficency and quality of our driving. Instead of thoughtlessly programming, we collaborate with our Hardware section to ensure our robot can be the fastest.  
+
+\subsection{Intake}
+When we intake, the driver can simply press the “X” button to switch from intaking to outtaking and the “Y” button to stop the motor. This makes intaking and outtaking faster and easier, since for our intake, we don’t have to constantly spin the motors for the stone to stay in. Not only that, but this means the driver won’t accidentally intake or outtake when they mean to, because if the stone is in the intake already, then the driver will simply want to outtake, so there is no confusion when they press “X” again.
+
+
+\subsection{Precision Driving}
+
+We use mecanum wheels so that we can strafe. In this game where we need to stack the stones, being able to strafe is very important. Since we can strafe, we are able to make fine adjustments to our stacking at the foundation. To strafe, we use the Range.clip method. \\
+
+By using Range.clip, we only need to use one joystick to move our robot in both the x and y directions. Since different powers need to be set to each wheel, we add and subtract different variables (drive, strafe, and turn), in order to calculate the correct power to set to each of our mecanum wheels. This makes diagonal complex movements possible and accounts for how all four mecanum wheels move independently.
+
+
+\subsection{'A' and 'B' Buttons}
+
+We don't use the buttons that interfere with the “start A” and “start B” button combinations so that if we ever need to switch during the match, we do not have to worry about that interfering with our gameplay.
+
+\subsection{One and Two Driver Autonomous}
+
+In Sksystone, we have two separate sets of TeleOp code, one made for two drivers and one made for one driver. This way, if anything goes wrong, we have a back up. For example, if a controller isn’t working or one of our drivers is sick, instead of scrambling to find someone to drive, we can simply use the one driver code. Having two sets of TeleOp code is insurance in case something goes wrong and also gives us the versatility to choose the optimal strategy during competition.
+\clearpage
+
+\section{Autonomous Program Diagram}
+\begin{center}
+
+\underline{Autonomous on the Foundation Side  (Steps 1 - 3)}
+
+{\includegraphics[width=.3 \linewidth]{autonomous1.png}}
+
+- The robot moves forward until the MR Range Sensor senses that it is close enough to the wall. \newline
+
+- The robot then turns 90º CW using the PID Controller. \newline
+
+- The robot moves backwards until the touch sensor on the back of the robot touches the foundation. 
+
+{\includegraphics[width=.3 \linewidth]{autonomous2.png}}
+
+\indent \indent- The arm locks in and grabs the foundation. \newline
+
+\indent \indent - The robot moves forward, bringing the foundation to the build site. \newline
+
+{\includegraphics[width=.3 \linewidth]{autonomous3.png}}
+
+- We then strafe until the Rev Color Distance sensor on the bottom of our robot senses the colored tape \newline
+
+- This allows us to park efficently. \newline
+
+
+\underline{Autonomous on the Skystone Side  (Steps 1 - 3)}
+
+{\includegraphics[width=.3 \linewidth]{autonomous5.png}}
+
+- The robot moves forward toward the stones, stopping until it reaches three inches away from the Skystone\\
+
+{\includegraphics[width=.3 \linewidth]{autonomous6.png}}
+
+\indent \indent- The robot strafes right until it reaches the skystone, and using its color sensor, it uses its hook to grab the skystone \newline \\
+
+\indent \indent - The robot then turns 90 degrees and drives forward until it senses the wall, where it stops using its range sensor \newline
+
+{\includegraphics[width=.3 \linewidth]{autonomous7.png}}
+
+- The robot turns an extra 90 degrees using a Gyro Sensor \\
+
+- The robot then drives forward until it stops on the blue tape using its color sensor on the bottom. 
+ \newline
+
+\end{center}
+
+
+
+\section{Our Sensors on the Robot}
+
+	\begin{center}
+ 	\begin{figure}[!htb]
+		{\includegraphics[width=1 \linewidth]{rangesensors.png}}
+		\caption{Various sensors on our robot, including a touch and a color sensor on the back of our robot for the foundation, a color sensor to sense the colored tape on the bottom of our robot, and a range sensor to sense various surroundings.}
+	\end{figure}
+	\end{center}
+
+
+\section{Our TeleOp and Autonomous Programs}
+
+\begin{center}{\includegraphics[width=.8 \linewidth]{autonomous8.png}}\end{center}
+
+The diagram below is an overview for our movement during the entire game. Here we have elaborated on what the arrows mean and they are color/letter/number coded to match the diagram. Even if they have only been depicted on one side, all programs work on BOTH red and blue sides of the field.\\ \\
+
+{\color{RoyalPurple}A - Autonomous on the Tray Side:} When doing autonomous on the side of the field closest to the tray, we have two main autonomous goals. The first goal is to reposition the foundation from its starting position into the building site. To do this, we use a range sensor to detect our distance from the wall. From there, we rotate using the Rev IMU and then use a touch sensor to locate the tray. We use an arm on a motor to attach ourselves to the foundation and drag it back to the building site. We then begin our second objective, which is navigating under the bridge. We detect the colored tape on the floor using our color sensor.\\ \\
+
+	{\color{RoyalPurple}A - Autonomous on the Skystone Side:} Our current plan for the depot side of autonomous is to go forward toward the stones, and then strafe right until the color sensor detects the skystone. Once it detects the skystone, it picks up the stone using our hook, and then using our range sensor, we sense until we reach the wall, and then strafe until we sense the colored tape using our second color sensor on the bottom of our robot. \\ \\ 
+
+	{\color{Aquamarine}1 - Driver Controlled Period:} During the tele-op period we score most of our points by picking up stones and stacking them. We drive towards the depot side and then collect the stones remaining from autonomous to build our tower.\\ \\
+
+	{\color{purple}2 - End of the Match Period:} In endgame we drive towards the depot and pick up our capstone from the human player. We then bring it back to the foundation and place it on top of our tower. We then drive and park onto the our building site.
+
+
+\section[Other Links + Engineering Notebook References] {Other Links + Engineering Notebook References}
+\begin{huge}
+\center {Please check out our website for links, info, and more! (We worked super hard for this!)}
+
+http://bit.ly/7890SpaceLions
+
+Also, check out our Github! 
+
+{https://github.com/Ailuridaek3k/ftc\_app\_7890} \\ 
+{Furthermore, please check pages 35-39 in our engineering notebook for more diagrams and explanations!}
+\center
+
+\newpage
+\newpage
+\end{huge}
+
+
+
+\section[How We Coded This!] {How We Coded This!}
+
+To code this Control Award, we used \LaTeX, a programming language designed for writing documents and articles. Documents produced by \LaTeX\  not only look better aesthetically, but most math documents use \LaTeX\  to write their theses, equations, and more. To show our coding prowess, we decided to use \LaTeX\, since it will be useful in the future. Through robotics and as a family, we have grown to appreciate programming and especially FTC Coding. Don't hesitate to check out our Engineering Notebook and our Website. 
+\\ \\
+To find our source code, go to this link:
+\begin{huge} \indent \indent \newline \newline
+https://github.com/Stephen-Chien/codeforControlAward
+\end{huge}
+\\(It's super long by the way)
+
+\center
+
+
+\end{document}
